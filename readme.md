@@ -22,21 +22,7 @@
 
 子睿不愧是 PPT 学院来的，各方面能力都挺好，做 PPT，汇报尤其 NB。一开始小组 PPT 是他做的，汇报的视频和 DV 剧也是他拍的，在此我要展示下，太牛了。
 
-<div>
-<iframe src="//player.bilibili.com/player.html?aid=639219029&bvid=BV1KY4y167rm&cid=721932595&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-
-<iframe src="//player.bilibili.com/player.html?aid=256645096&bvid=BV1Qa411f7ku&cid=721934213&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-<iframe src="//player.bilibili.com/player.html?aid=341734720&bvid=BV1gR4y1w72c&cid=723226782&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-</div>
-
-
-
-属实是逆天的存在，为了防止渲染失败，我给个 URL list
-
-
+属实是逆天的存在，貌似 github 会渲染失败，我给个 URL list
 
 1. [项目成果](https://www.bilibili.com/video/BV1gR4y1w72c?share_source=copy_web)
 2. [DV 剧本](https://www.bilibili.com/video/BV1Qa411f7ku/)
