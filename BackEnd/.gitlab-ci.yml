@@ -1,0 +1,68 @@
+image: registry.secoder.net/tool/deployer
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script: 
+    - export BUILD_IMAGE_NAME=$CI_REGISTRY_IMAGE
+    - export BUILD_IMAGE_TAG=$CI_COMMIT_REF_SLUG
+    - export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
+    - export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
+    - deployer build
+
+# Job template for test stage
+.test:
+  image: node:17.6.0
+  stage: test
+
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+
+  before_script:
+    - yarn config set registry https://registry.npm.taobao.org
+    - yarn install
+
+unit-test:
+  extends: .test
+  script:
+    - yarn test:cov-sonar
+    - RET=$?
+    - exit $RET
+  after_script:
+    - SUFFIX=$RANDOM
+    - curl "http://10.0.0.11/sonar-scanner.tar.gz" -s -o "/tmp/sonar-$SUFFIX.tar.gz"
+    - tar -xf "/tmp/sonar-$SUFFIX.tar.gz"  -C /opt
+    - /opt/sonar-scanner/bin/sonar-scanner
+
+# e2e-test:
+#   extends: .test
+#   script:
+#     - yarn test:e2e
+#   allow_failure: true # We now do not depend on e2e to test code.
+    
+style-test:
+  extends: .test
+  # allow_failure: true
+  script:
+    - yarn lint-test
+
+deploy:
+  stage: deploy
+  script:
+    - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
+  only:
+    - master
+
+deploy-dev:
+  stage: deploy
+  script:
+    - deployer dyno replace backend-dev "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
+  except:
+    - master
+
